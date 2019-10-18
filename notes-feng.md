@@ -1,0 +1,32 @@
+Data
+===========
+1. See layerout in data/0-34/feng/images
+2. Then run xml-to-csv
+
+Prepare tensorflow model
+========================
+
+1. run extern/install_deps.sh, add to PYTHONPATH
+2. now can run generate tf-record
+
+Not compatable with tensorflow 1.3:
+```
+lifen@sievert(:):~/Workspace/dl-assignments/competition2/data/0-34-feng$python /home/lifen/Workspace/dl-assignments/extern/TensorFlow/models/research/object_detection/dataset_tools/create_pascal_tf_record.py --help
+Traceback (most recent call last):
+  File "/home/lifen/Workspace/dl-assignments/extern/TensorFlow/models/research/object_detection/dataset_tools/create_pascal_tf_record.py", line 38, in <module>
+    from object_detection.utils import label_map_util
+  File "/home/lifen/Workspace/dl-assignments/extern/TensorFlow/models/research/object_detection/utils/label_map_util.py", line 21, in <module>
+    from object_detection.protos import string_int_label_map_pb2
+ImportError: cannot import name 'string_int_label_map_pb2' from 'object_detection.protos' (/home/lifen/Workspace/dl-assignments/extern/TensorFlow/models/research/object_detection/protos/__init__.py)
+
+```
+
+Deps
+=========
+1. cd extern
+1. ./install_deps.sh
+2. source setenv.sh
+
+Read the installation guide carefully:
+  https://github.com/tensorflow/models/blob/v1.13.0/research/object_detection/g3doc/installation.md
+conda install lxml pillow
