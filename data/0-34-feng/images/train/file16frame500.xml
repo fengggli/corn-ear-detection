@@ -1,0 +1,26 @@
+<annotation>
+	<folder>0-46</folder>
+	<filename>file16frame500.jpg</filename>
+	<path>/home/lifeng/Workspace/dl-assignments/competition2/data/images_original/0-46/file16frame500.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1920</width>
+		<height>1080</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>1</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>319</xmin>
+			<ymin>780</ymin>
+			<xmax>432</xmax>
+			<ymax>875</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,26 @@
+<annotation>
+	<folder>0-46</folder>
+	<filename>file22frame400.jpg</filename>
+	<path>/home/lifeng/Workspace/dl-assignments/competition2/data/images_original/0-46/file22frame400.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1920</width>
+		<height>1080</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>0</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>835</xmin>
+			<ymin>585</ymin>
+			<xmax>944</xmax>
+			<ymax>698</ymax>
+		</bndbox>
+	</object>
+</annotation>
