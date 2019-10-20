@@ -26,6 +26,7 @@ Deps
 1. cd extern
 1. ./install_deps.sh
 2. source setenv.sh
+3. run ``python $TFMODELSPATH/object_detection/builders/model_builder_test.py`` to test!(make sure using correct conda env!)
 
 Read the installation guide carefully:
   https://github.com/tensorflow/models/blob/v1.13.0/research/object_detection/g3doc/installation.md
