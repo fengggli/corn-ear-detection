@@ -23,6 +23,7 @@ ImportError: cannot import name 'string_int_label_map_pb2' from 'object_detectio
 
 Deps
 =========
+Update: see https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/install.html
 1. cd extern
 1. ./install_deps.sh
 2. source setenv.sh
@@ -31,3 +32,16 @@ Deps
 Read the installation guide carefully:
   https://github.com/tensorflow/models/blob/v1.13.0/research/object_detection/g3doc/installation.md
 conda install lxml pillow
+
+COCO
+=========
+* ModuleNotFoundError: No module named 'pycocotools'
+* See https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/install.html#coco-api-installation-optional
+* need conda install cython
+* research$ln -s ./cocoapi/PythonAPI/pycocotools/ .
+
+Model
+===========
+
+* ref: https://github.com/tensorflow/models/blob/v1.13.0/research/object_detection/g3doc/detection_model_zoo.md
+* model downloaded in scripts, from http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
