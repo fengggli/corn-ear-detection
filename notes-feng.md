@@ -1,7 +1,3 @@
-Data
-===========
-1. See layerout in data/0-34/feng/images
-2. Then run xml-to-csv
 
 Prepare tensorflow model
 ========================
@@ -45,3 +41,10 @@ Model
 
 * ref: https://github.com/tensorflow/models/blob/v1.13.0/research/object_detection/g3doc/detection_model_zoo.md
 * model downloaded in scripts, from http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
+
+Data
+===========
+1. See layerout in data/0-34/feng/images
+2. 
+2. Then run xml-to-csv
+

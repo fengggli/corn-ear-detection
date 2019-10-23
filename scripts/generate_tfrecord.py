@@ -31,6 +31,8 @@ FLAGS = flags.FLAGS
 def class_text_to_int(row_label):
     if row_label == '1':
         return 1
+    if row_label == '0':
+        return 2
     else:
         None
 
@@ -62,6 +64,7 @@ def create_tf_example(group, path):
         xmaxs.append(row['xmax'] / width)
         ymins.append(row['ymin'] / height)
         ymaxs.append(row['ymax'] / height)
+        #if(row['class'] == 1):
         this_label_str = "class" + str(row['class']) # added by feng_
         classes_text.append(this_label_str.encode('utf8'))
         #classes.append(class_text_to_int(this_label_str))
