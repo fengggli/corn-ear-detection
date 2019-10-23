@@ -1,22 +1,3 @@
-
-Prepare tensorflow model
-========================
-
-1. run extern/install_deps.sh, add to PYTHONPATH
-2. now can run generate tf-record
-
-Not compatable with tensorflow 1.3:
-```
-lifen@sievert(:):~/Workspace/dl-assignments/competition2/data/0-34-feng$python /home/lifen/Workspace/dl-assignments/extern/TensorFlow/models/research/object_detection/dataset_tools/create_pascal_tf_record.py --help
-Traceback (most recent call last):
-  File "/home/lifen/Workspace/dl-assignments/extern/TensorFlow/models/research/object_detection/dataset_tools/create_pascal_tf_record.py", line 38, in <module>
-    from object_detection.utils import label_map_util
-  File "/home/lifen/Workspace/dl-assignments/extern/TensorFlow/models/research/object_detection/utils/label_map_util.py", line 21, in <module>
-    from object_detection.protos import string_int_label_map_pb2
-ImportError: cannot import name 'string_int_label_map_pb2' from 'object_detection.protos' (/home/lifen/Workspace/dl-assignments/extern/TensorFlow/models/research/object_detection/protos/__init__.py)
-
-```
-
 Deps
 =========
 Update: see https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/install.html
@@ -36,15 +17,43 @@ COCO
 * need conda install cython
 * research$ln -s ./cocoapi/PythonAPI/pycocotools/ .
 
+
 Model
 ===========
 
 * ref: https://github.com/tensorflow/models/blob/v1.13.0/research/object_detection/g3doc/detection_model_zoo.md
 * model downloaded in scripts, from http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
 
-Data
+Steps
 ===========
-1. See layerout in data/0-34/feng/images
-2. 
-2. Then run xml-to-csv
+1. See file layerout in data/0-34/feng/images
+
+2. Then run xml_to_csv.py 
+  ```
+  cd data/0-34-feng
+  python ../../scripts/xml_to_csv.py
+  ```
+
+3. generate tfrecords(in scripts dir):
+  ```
+  cd scripts
+  python generate_tfrecord.py --csv_input=../data/0-34-feng/images/train_labels.csv --image_dir=../data/images_original/0-34-feng --output_path=../data/0-34-feng/train.record
+  python generate_tfrecord.py --csv_input=../data/0-34-feng/images/test_labels.csv --image_dir=../data/images_original/0-34-feng --output_path=../data/0-34-feng/test.record
+  ```
+
+4. train
+```shell
+  python model_main.py --logtostderr --train_dir=training/ --pipeline_config_path=./faster_rcnn_inception_v2_pets.config
+  #somehow the data is not stored in training. Instead it's in  tmp directory (observed from log)
+  mkdir train_copy && cp -r /tmp/tmpbjnn4igd/ training_copy
+```
+
+The .config file defines path for tfrecord files, model being used, and training parameters such as optimizer/learning rate, etc.
+
+5. export inference graph 
+  ```
+  python /home/lifen/Workspace/corn-ear-detection/extern/TensorFlow/models/research/object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path faster_rcnn_inception_v2_pets.config --trained_checkpoint_prefix training_copy/model.ckpt-2000 --output_directory inference_graph
+  ```
+
+6. run the detect.ipynb to predict (Work in progress).
 
