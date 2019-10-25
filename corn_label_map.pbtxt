@@ -1,8 +1,1 @@
-item {
-  id: 1
-  name: 'cornear'
-}
-item {
-  id: 2
-  name: 'others'
-}
+/share/Competition2/corn_label_map.pbtxt
