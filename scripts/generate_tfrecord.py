@@ -28,13 +28,13 @@ FLAGS = flags.FLAGS
 
 
 # TO-DO replace this with label map
-def class_text_to_int(row_label):
-    if row_label == '1':
-        return 1
-    if row_label == '0':
-        return 2
-    else:
-        None
+# def class_text_to_int(row_label):
+    # if row_label == '1':
+        # return 1
+    # if row_label == '0':
+        # return 2
+    # else:
+        # None
 
 
 def split(df, group):
@@ -60,15 +60,15 @@ def create_tf_example(group, path):
     classes = []
 
     for index, row in group.object.iterrows():
-        xmins.append(row['xmin'] / width)
-        xmaxs.append(row['xmax'] / width)
-        ymins.append(row['ymin'] / height)
-        ymaxs.append(row['ymax'] / height)
-        #if(row['class'] == 1):
-        this_label_str = "class" + str(row['class']) # added by feng_
-        classes_text.append(this_label_str.encode('utf8'))
-        #classes.append(class_text_to_int(this_label_str))
-        classes.append(row['class'])
+        if(row['class'] == 1):
+            xmins.append(row['xmin'] / width)
+            xmaxs.append(row['xmax'] / width)
+            ymins.append(row['ymin'] / height)
+            ymaxs.append(row['ymax'] / height)
+            this_label_str = "class" + str(row['class']) # added by feng_
+            classes_text.append(this_label_str.encode('utf8'))
+            #classes.append(class_text_to_int(this_label_str))
+            classes.append(row['class'])
 
     print("labels: ", classes)
     tf_example = tf.train.Example(features=tf.train.Features(feature={

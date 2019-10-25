@@ -66,7 +66,7 @@ The .config file defines path for tfrecord files, model being used, and training
 
 5. export inference graph 
   ```
-  python /home/lifen/Workspace/corn-ear-detection/extern/TensorFlow/models/research/object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path faster_rcnn_inception_v2_pets.config --trained_checkpoint_prefix training_copy/model.ckpt-2000 --output_directory inference_graph
+  python /opt/tf-object-detectionk/TensorFlow/models/research/object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path faster_rcnn_inception_v2_pets.config --trained_checkpoint_prefix training_copy/model.ckpt-2000 --output_directory inference_graph
   ```
 
 6. run the detect.ipynb to predict (Work in progress).
