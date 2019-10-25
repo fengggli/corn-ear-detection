@@ -1,3 +1,16 @@
+In sievert
+==========
+
+1. ssh -L 2019:localhost:2019 youname@sievert.cs.iupui.edu (login)
+2. in sievert, run
+  ```
+    source /opt/tf-object-detection/setenv.sh
+  ```
+3. git clone https://github.com/fengggli/corn-ear-detection.git
+4. jupyter-lab --no-brower --port=2019
+5. in your local brower open localhost:2019
+6. data is /share
+
 Deps
 =========
 Update: see https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/install.html
