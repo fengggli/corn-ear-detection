@@ -8,7 +8,7 @@ In sievert
   ```
 3. git clone https://github.com/fengggli/corn-ear-detection.git
 4. jupyter-lab --no-brower --port=2019
-5. in your local brower open localhost:2019
+5. in your local browser open localhost:2019
 6. data is /share
 
 Deps
