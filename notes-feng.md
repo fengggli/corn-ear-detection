@@ -48,6 +48,7 @@ Steps
   ```
 
 3. generate tfrecords(in scripts dir):
+  (run scripts/generate_tf_record.sh)
   ```
   cd scripts
   python generate_tfrecord.py --csv_input=../data/0-34-feng/images/train_labels.csv --image_dir=../data/images_original/0-34-feng --output_path=../data/0-34-feng/train.record
@@ -56,7 +57,7 @@ Steps
 
 4. train
 ```shell
-  python model_main.py --logtostderr --train_dir=training/ --pipeline_config_path=./faster_rcnn_inception_v2_pets.config
+  python model_main.py --logtostderr --model_dir=training/ --pipeline_config_path=./faster_rcnn_inception_v2_pets.config
   #somehow the data is not stored in training. Instead it's in  tmp directory (observed from log)
   mkdir train_copy && cp -r /tmp/tmpbjnn4igd/ training_copy
 ```

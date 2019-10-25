@@ -33,11 +33,11 @@ def xml_to_csv(path):
 
 # New:
 def main():
+    image_root='/share/Competition2/images/'
     for folder in ['train', 'test']:
-        image_path = os.path.join(os.getcwd(), ('images/' + folder))
+        image_path = os.path.join(image_root, folder)
         xml_df = xml_to_csv(image_path)
-        xml_df.to_csv(('images/'+folder+'_labels.csv'), index=None)
+        xml_df.to_csv((image_root+folder+'_labels.csv'), index=None)
         print('Successfully converted xml to csv.')
-
 
 main()
