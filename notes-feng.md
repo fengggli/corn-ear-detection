@@ -42,6 +42,8 @@ Model
 
 * ref: https://github.com/tensorflow/models/blob/v1.13.0/research/object_detection/g3doc/detection_model_zoo.md
 * model downloaded in scripts, from http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
+* r-cnn paper: https://arxiv.org/pdf/1311.2524.pdf
+* R-CNN, Fast R-CNN, Faster R-CNN, YOLO — Object Detection Algorithms https://towardsdatascience.com/r-cnn-fast-r-cnn-faster-r-cnn-yolo-object-detection-algorithms-36d53571365e
 
 Steps
 ===========
