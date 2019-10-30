@@ -44,6 +44,7 @@ Model
 * model downloaded in scripts, from http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
 * r-cnn paper: https://arxiv.org/pdf/1311.2524.pdf
 * R-CNN, Fast R-CNN, Faster R-CNN, YOLO — Object Detection Algorithms https://towardsdatascience.com/r-cnn-fast-r-cnn-faster-r-cnn-yolo-object-detection-algorithms-36d53571365e
+* Comparision in speed and accurary of popular methods https://medium.com/@jonathan_hui/object-detection-speed-and-accuracy-comparison-faster-r-cnn-r-fcn-ssd-and-yolo-5425656ae359
 
 Steps
 ===========
