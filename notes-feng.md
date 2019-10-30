@@ -1,3 +1,9 @@
+TODO
+=========
+1. change checkpoint frequency. ("images" tab can be used for each checkpoint)
+2. recheck input labeling
+3. try different models.
+
 In sievert
 ==========
 
@@ -7,7 +13,7 @@ In sievert
     source /opt/tf-object-detection/setenv.sh
   ```
 3. git clone https://github.com/fengggli/corn-ear-detection.git
-4. jupyter-lab --no-browser --port=2019
+4. (in a terminal where you have already sourced  the setenv.sh)jupyter-lab --no-browser --port=2019
 5. in your local browser open localhost:2019
 6. data is /share
 
