@@ -2,6 +2,7 @@ import os
 import glob
 import pandas as pd
 import xml.etree.ElementTree as ET
+import sys
 
 
 def xml_to_csv(path):
@@ -33,11 +34,17 @@ def xml_to_csv(path):
 
 # New:
 def main():
-    image_root='/share/Competition2/images/'
+    if len(sys.argv) != 2:
+        print("format: python xml_to_csv.py xml_path")
+        return -1
+    else:
+        annotation_path=sys.argv[1]
+        print("Using xml path:", annotation_path)
+
     for folder in ['train', 'test']:
-        image_path = os.path.join(image_root, folder)
+        image_path = os.path.join(annotation_path, folder)
         xml_df = xml_to_csv(image_path)
-        xml_df.to_csv((image_root+folder+'_labels.csv'), index=None)
+        xml_df.to_csv((annotation_path+folder+'_labels.csv'), index=None)
         print('Successfully converted xml to csv.')
 
 main()
