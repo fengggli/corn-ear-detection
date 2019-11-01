@@ -7,7 +7,10 @@ TODO
 In sievert
 ==========
 
-1. ssh -L 2019:localhost:2019 youname@sievert.cs.iupui.edu (login)
+1. ssh -L 2019:localhost:2019 -L 6006:localhost:6006 youname@sievert.cs.iupui.edu (login)
+  - 2019 for jupyter port
+  - 6006 for tensorboard port
+
 2. in sievert, run
   ```
     source /opt/tf-object-detection/setenv.sh
@@ -62,6 +65,9 @@ Steps
 ```
 
 The .config file defines path for tfrecord files, model being used, and training parameters such as optimizer/learning rate, etc.
+
+view tensorboard:
+  tensorboard --logdir=$traindir --port
 
 5. export inference graph
   ```shell
