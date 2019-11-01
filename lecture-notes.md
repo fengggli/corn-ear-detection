@@ -21,8 +21,8 @@ Some notes from today's class:
 
 1. model should be easy run (no external packages)
 2. good documentation
-3. give some example. (images with detection)
-4. he will run on  test images and see what can be detected
+3. give some example (images with detection)
+4. he will run on test images and see what can be detected
 
 10-16
 ------

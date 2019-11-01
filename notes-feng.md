@@ -48,34 +48,25 @@ Model
 
 Steps
 ===========
-1. See file layerout in data/0-34/feng/images
+1. Download and extract box data at path-to-box-download
+2. cd scripts/ and run 
+  ```
+  process_data.sh path-to-box-download
+  ```
+3. change the input_path in scripts/faster_rcnn_inception_xx.config, to tf record path generated in last step
 
-2. Then run xml_to_csv.py 
-  ```
-  cd data/0-34-feng
-  python ../../scripts/xml_to_csv.py
-  ```
-
-3. generate tfrecords(in scripts dir):
-  (run scripts/generate_tf_record.sh)
-  ```
-  cd scripts
-  python generate_tfrecord.py --csv_input=../data/0-34-feng/images/train_labels.csv --image_dir=../data/images_original/0-34-feng --output_path=../data/0-34-feng/train.record
-  python generate_tfrecord.py --csv_input=../data/0-34-feng/images/test_labels.csv --image_dir=../data/images_original/0-34-feng --output_path=../data/0-34-feng/test.record
-  ```
-
-4. train
+4. train (Use "--model-dir", run with --help for more details)
 ```shell
-  python model_main.py --logtostderr --model_dir=training/ --pipeline_config_path=./faster_rcnn_inception_v2_pets.config
-  #somehow the data is not stored in training. Instead it's in  tmp directory (observed from log)
-  mkdir train_copy && cp -r /tmp/tmpbjnn4igd/ training_copy
+  export traindir=/share/Competition2/models/1031-1847 # this variable will be used in both training and generating inference graph
+  python model_main.py --logtostderr --model_dir=$traindir --pipeline_config_path=./faster_rcnn_inception_v2_pets.config
 ```
 
 The .config file defines path for tfrecord files, model being used, and training parameters such as optimizer/learning rate, etc.
 
-5. export inference graph 
-  ```
-  python /opt/tf-object-detection/TensorFlow/models/research/object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path faster_rcnn_inception_v2_pets.config --trained_checkpoint_prefix training_copy/model.ckpt-2000 --output_directory inference_graph
+5. export inference graph
+  ```shell
+  echo $traindir # this will give your the same directory used in last step
+  python /opt/tf-object-detection/TensorFlow/models/research/object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path faster_rcnn_inception_v2_pets.config --trained_checkpoint_prefix $traindir/model.ckpt-14035 --output_directory $traindir/inference_graph
   ```
 
 6. run the detect.ipynb to predict (Work in progress).

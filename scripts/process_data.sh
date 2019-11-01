@@ -8,6 +8,7 @@ else
   exit
 fi
 #/share/Competition2/fromBox
+TFRECORD_DIR=/share/Competition2/images
 
 NEW_UUID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 5 | head -n 1)
 SOURCE_DIR=$(pwd)
@@ -51,3 +52,9 @@ python3 $SOURCE_DIR/generate_tfrecord.py --csv_input=annotations/test_labels.csv
 
 
 echo "All saved in $OUTPUT_DIR/"
+if [ -d /share/Competition2 ]; then # only in sievert
+  rm -rf $TFRECORD_DIR
+  cp -r $(readlink -f images) $TFRECORD_DIR
+  echo "saving from $(readlink -f images) to $TFRECORD_DIR" 
+fi
+
