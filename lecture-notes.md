@@ -1,7 +1,8 @@
 Nov 6
 --------
 Notes from class:
-1.Average height in the third column is the average height of all connections in the whole video. (so we need to identify the same crop?)
+
+1. Average height in the third column is the average height of all connections in the whole video. (so we need to identify the same crop?)
 2. Dr. Mohler suggests to model the average height of each frame using a linear regression (with pixels(i) of each detection as input). Pixel j could also be used, say, if j is changing from frame to frame, it indicates how the camera moves.
 
 Oct 30
