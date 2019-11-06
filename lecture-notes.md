@@ -17,10 +17,10 @@ Frame
  ```
  Linear Regression: Label = A*(a1+a2+a3)/3 + B
  
- Label is data from the csv file Dr. Mohler gave us.
- i1,i2,i3 is the corn-ear-connection our model detected.
- a1,a2,a3 is the height of i1,i2,i3 in the frame.(#pixels from bottom line to the detected connection)
- A, B is trained by data.
+ 1. Label is data from the csv file Dr. Mohler gave us.
+ 2. i1,i2,i3 is the corn-ear-connection our model detected.
+ 3. a1,a2,a3 is the height of i1,i2,i3 in the frame.(#pixels from bottom line to the detected connection)
+ 4. A, B is trained by data.
  
  The same connection may generate multiple datas at different time point.
 
