@@ -1,3 +1,29 @@
+Nov 6
+--------
+Notes from class:
+
+1. Average height in the third column is the average height of all connections in the whole video. (so we need to identify the same crop?)
+2. Dr. Mohler suggests to model the average height of each frame using a linear regression (with pixels(i) of each detection as input). Pixel j could also be used, say, if j is changing from frame to frame, it indicates how the camera moves.
+3. linear regression model
+```
+Frame
+    |                            |
+    | +(i1)                      |
+    |          +(i3)             |
+    |               +(i2)        |
+    |                            |
+    |                            |
+ -----------------------------------  bottom line
+ ```
+ Linear Regression: Label = A*(a1+a2+a3)/3 + B
+ 
+ 1. Label is data from the csv file Dr. Mohler gave us.
+ 2. i1,i2,i3 is the corn-ear-connection our model detected.
+ 3. a1,a2,a3 is the height of i1,i2,i3 in the frame.(#pixels from bottom line to the detected connection)
+ 4. A, B is trained by data.
+ 
+ The same connection may generate multiple datas at different time point.
+
 Oct 30
 --------
 Some notes from today's class:
