@@ -63,6 +63,7 @@ Steps
   export traindir=/share/Competition2/models/1031-1847 # this variable will be used in both training and generating inference graph
   python model_main.py --logtostderr --model_dir=$traindir --pipeline_config_path=./faster_rcnn_inception_v2_pets.config
 ```
+  Then copy the pipeline file to the traindir, so that we can use it for inference later!
 
 The .config file defines path for tfrecord files, model being used, and training parameters such as optimizer/learning rate, etc.
 
@@ -72,7 +73,7 @@ view tensorboard:
 5. export inference graph
   ```shell
   echo $traindir # this will give your the same directory used in last step
-  python /opt/tf-object-detection/TensorFlow/models/research/object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path faster_rcnn_inception_v2_pets.config --trained_checkpoint_prefix $traindir/model.ckpt-14035 --output_directory $traindir/inference_graph
+  python /opt/tf-object-detection/TensorFlow/models/research/object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path $traindir/faster_rcnn_inception_v2_pets.config --trained_checkpoint_prefix $traindir/model.ckpt-14035 --output_directory $traindir/inference_graph
   ```
 
 6. run the detect.ipynb to predict (Work in progress).
