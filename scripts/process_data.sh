@@ -27,10 +27,10 @@ cd $OUTPUT_DIR
   mkdir -pv annotations/test
 
   mkdir -pv all_xml 
-  cp $ANNOTATION_DIR/*revised/*.xml all_xml #325 xmls, some don't have connections
+  cp $ANNOTATION_DIR/*xml/*.xml all_xml #325 xmls, some don't have connections
 
-  grep -Rl "<name>1</name>" all_xml/ | shuf &> selected.list #215 contains "1"
-  num_val=15 #15 samples for validation
+  grep -Rl "<name>[12]</name>" all_xml/ | shuf &> selected.list #xml 290contains "1" or "2"
+  num_val=30 #15% samples for validation
   cat selected.list |head -n -$num_val | xargs -I % cp % annotations/train
   cat selected.list |tail -n $num_val | xargs -I % cp % annotations/test
 }
@@ -47,8 +47,8 @@ python3 $SOURCE_DIR/xml_to_csv.py annotations/
 
 echo "now generating tfrecords..."
 # generate tf_records
-python3 $SOURCE_DIR/generate_tfrecord.py --csv_input=annotations/train_labels.csv --image_dir=images --output_path=images/train-1class.record
-python3 $SOURCE_DIR/generate_tfrecord.py --csv_input=annotations/test_labels.csv --image_dir=images --output_path=images/test-1class.record
+python3 $SOURCE_DIR/generate_tfrecord.py --csv_input=annotations/train_labels.csv --image_dir=images --output_path=images/train-2class.record
+python3 $SOURCE_DIR/generate_tfrecord.py --csv_input=annotations/test_labels.csv --image_dir=images --output_path=images/test-2class.record
 
 
 echo "All saved in $OUTPUT_DIR/"

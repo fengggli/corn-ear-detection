@@ -61,7 +61,7 @@ def create_tf_example(group, path):
     classes = []
 
     for index, row in group.object.iterrows():
-        if(row['class'] == 1):
+        if(row['class'] == 1 or row['class'] == 2):
             xmins.append(row['xmin'] / width)
             xmaxs.append(row['xmax'] / width)
             ymins.append(row['ymin'] / height)
