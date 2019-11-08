@@ -1,5 +1,21 @@
+Nov 8
+---------
+
+1. generate detection csv(using trained model) with format:
+  videoname, frameno, corn-center-horizontal(x), corn-connection-vertical
+  ```
+  0 ---x---->
+  |
+  y
+  |
+  ```
+2. Try regression method with ground truth first
+  in sievert: /share/Competition2/images/annotations/train_labels.csv (test_labels.csv)
+3. We also need 5GB data.
+
 Nov 6
 --------
+
 Notes from class:
 
 1. Average height in the third column is the average height of all connections in the whole video. (so we need to identify the same crop?)

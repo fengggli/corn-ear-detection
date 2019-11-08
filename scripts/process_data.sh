@@ -55,6 +55,7 @@ echo "All saved in $OUTPUT_DIR/"
 if [ -d /share/Competition2 ]; then # only in sievert
   rm -rf $TFRECORD_DIR
   cp -r $(readlink -f images) $TFRECORD_DIR
-  echo "saving from $(readlink -f images) to $TFRECORD_DIR" 
+  cp -r $(readlink -f annotations) $TFRECORD_DIR/images
+  echo "saving annotations from $(readlink -f images) to $TFRECORD_DIR" 
 fi
 
