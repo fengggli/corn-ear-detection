@@ -47,10 +47,11 @@ from utils import visualization_utils as vis_util
     # if 'frozen_inference_graph.pb' in file_name:
         # tar_file.extract(file, os.getcwd())
 
-videopath='./videos/4inch/GOPR0388.MP4'
+videopath='data/examples/GOPR0388.MP4'
 cap = cv2.VideoCapture(videopath)  # Change only if you have more than one webcams
 
-MODEL_PATH='./saved_models/v0.1/'
+MODEL_PATH='data/saved_models/v0.1/'
+
 PATH_TO_CKPT = os.path.join(MODEL_PATH, 'frozen_inference_graph.pb')
 PATH_TO_LABELS = os.path.join(MODEL_PATH, 'corn_label_map_2class.pbtxt')
 NUM_CLASSES = 2
