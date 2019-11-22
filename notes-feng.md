@@ -74,15 +74,3 @@ view tensorboard:
   ```shell
   echo $traindir # this will give your the same directory used in last step
   python /opt/tf-object-detection/TensorFlow/models/research/object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path $traindir/faster_rcnn_inception_v2_pets.config --trained_checkpoint_prefix $traindir/model.ckpt-14035 --output_directory $traindir/inference_graph
-  ```
-
-
-6. test video
-```
-python scripts/video_utils.py
-```
-
-7. test images
-```
-tests/test_video.py --imagepath data/examples/file16frame100.jpg
-```
