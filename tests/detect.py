@@ -39,7 +39,10 @@ if(args.imagepath):
     imagepath=args.imagepath
     outputpath='data/predict.jpg'
     input_is_video=False
-
+else:
+    fourcc = cv2.VideoWriter_fourcc(*'MP4V')
+    outputpath='data/predict.mp4'
+    out = cv2.VideoWriter(outputpath,fourcc, 30.0, (1920,1080))
 
 MODEL_PATH='data/saved_models/v0.1/'
 
@@ -92,11 +95,13 @@ with detection_graph.as_default():
             if input_is_video:
                 print("frame #", count)
                 ret, image_np = cap.read()
-                if ret:
-                    count += 5 # i.e. at 30 fps, this advances one second
+                if ret and count < 30:
+                    count += 1 # i.e. at 30 fps, this advances one second
                     cap.set(1, count)
                 else:
                     cap.release()
+                    cv2.destroyAllWindows()
+                    print('predicted video is saved in', outputpath)
                     break
             else:
                 print("processing image at ", imagepath)
@@ -131,13 +136,12 @@ with detection_graph.as_default():
 
             # Display output
             if input_is_video:
-                cv2.imshow('object detection', cv2.resize(image_np, (800, 600)))
+                out.write(image_np)
                 if cv2.waitKey(1) & 0xFF == ord('q'):
-                    cv2.destroyAllWindows()
                     break
             else:
                 plt.figure(figsize=(800, 600))
-                plt.imshow(image_np)
+                #plt.imshow(image_np)
                 plt.imsave(outputpath, image_np)
                 print('predicted image is saved in', outputpath)
                 break

@@ -10,10 +10,10 @@ conda activate tf-cpu
 
 4. test images
 ```
-python tests/test_video.py --imagepath data/examples/file16frame100.jpg
+python tests/detect.py --imagepath data/examples/file16frame100.jpg
 ```
 
 5. test video
 ```
-python scripts/video_utils.py
+python tests/detect.py 
 ```
