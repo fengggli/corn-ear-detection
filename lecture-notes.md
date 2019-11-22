@@ -1,3 +1,11 @@
+Nov 22
+---------
+
+TODO:
+1. use 2inch data to retrain
+2. generate xmls
+3. try to give more weights to class1.
+
 Nov 8
 ---------
 
