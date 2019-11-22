@@ -22,6 +22,9 @@ sys.path.append(tf_extern_root + 'object_detection')
 
 sys.path.append('./scripts')
 import vis_util
+import os
+
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 parser = argparse.ArgumentParser()
 
