@@ -13,13 +13,15 @@ from io import StringIO
 from matplotlib import pyplot as plt
 from PIL import Image
 
+'''
 tf_extern_root = '/home/lifen/Workspace/corn-data/extern/TensorFlow/models/research/'
 sys.path.append(tf_extern_root)
 sys.path.append(tf_extern_root + 'slim')
 sys.path.append(tf_extern_root + 'object_detection')
+'''
 
-from utils import label_map_util
-from utils import visualization_utils as vis_util
+sys.path.append('./scripts')
+import vis_util
 
 parser = argparse.ArgumentParser()
 
@@ -57,10 +59,11 @@ with detection_graph.as_default():
 
 # Loading label map
 # Label maps map indices to category names, so that when our convolution network predicts `5`, we know that this corresponds to `airplane`.  Here we use internal utility functions, but anything that returns a dictionary mapping integers to appropriate string labels would be fine
-label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
-categories = label_map_util.convert_label_map_to_categories(
-    label_map, max_num_classes=NUM_CLASSES, use_display_name=True)
-category_index = label_map_util.create_category_index(categories)
+# label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
+# categories = label_map_util.convert_label_map_to_categories(
+    # label_map, max_num_classes=NUM_CLASSES, use_display_name=True)
+# category_index = label_map_util.create_category_index(categories)
+category_index = {1:{'id':1, 'name': 'cornear'}, 2:{'id':2, 'name': 'rearside'}}
 
 # Helper code
 def load_image_into_numpy_array(image):
@@ -116,6 +119,7 @@ with detection_graph.as_default():
                 [boxes, scores, classes, num_detections],
                 feed_dict={image_tensor: image_np_expanded})
             # Visualization of the results of a detection.
+
             vis_util.visualize_boxes_and_labels_on_image_array(
                 image_np,
                 np.squeeze(boxes),

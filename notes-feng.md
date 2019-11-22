@@ -83,3 +83,6 @@ python scripts/video_utils.py
 ```
 
 7. test images
+```
+tests/test_video.py --imagepath data/examples/file16frame100.jpg
+```
