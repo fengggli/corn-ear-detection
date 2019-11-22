@@ -76,5 +76,10 @@ view tensorboard:
   python /opt/tf-object-detection/TensorFlow/models/research/object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path $traindir/faster_rcnn_inception_v2_pets.config --trained_checkpoint_prefix $traindir/model.ckpt-14035 --output_directory $traindir/inference_graph
   ```
 
-6. run the detect.ipynb to predict (Work in progress).
 
+6. test video
+```
+python scripts/video_utils.py
+```
+
+7. test images
