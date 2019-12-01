@@ -32,12 +32,18 @@ parser = argparse.ArgumentParser()
 
 # add long and short argument
 parser.add_argument("--imagepath", help="image to process(if not provided, a sample video will be processed instead)")
+parser.add_argument("--videopath", help="path to gopro video file")
+parser.add_argument("--norender", help="don't generate output video", action="store_true")
 
 args = parser.parse_args()
 
 # operato on a video if not providing any image input
 input_is_video=True
-videopath='data/examples/GOPR0388.MP4'
+
+if(args.videopath):
+    videopath = args.videopath
+else:
+    videopath='data/examples/GOPR0388.MP4'
 
 width = 1920
 height = 1080
@@ -54,7 +60,9 @@ else:
 
     output_video_path= os.path.join('tests/predictions/', gopro_id +'.MP4')
     output_csv_path= os.path.join('tests/predictions/', gopro_id + '.csv')
-    out = cv2.VideoWriter(output_video_path,fourcc, 30.0, (width,height))
+
+    if not args.norender:
+        out = cv2.VideoWriter(output_video_path,fourcc, 30.0, (width,height))
 
 MODEL_PATH='data/saved_models/v0.1/'
 
@@ -156,7 +164,6 @@ with detection_graph.as_default():
                 for i in range(all_boxes.shape[0]):
                     if(all_scores[i]) > 0.5:
                         name = gopro_id + 'frame'+ str(count)
-                        print("boxes:", all_boxes)
                         value = (name,
                                 int(width),
                                 int(height),
@@ -170,8 +177,9 @@ with detection_graph.as_default():
 
                         xml_list.append(value)
 
-                for frame in range(frames_per_step):
-                    out.write(image_np)
+                if not args.norender:
+                    for frame in range(frames_per_step):
+                        out.write(image_np)
 
                 count += frames_per_step
                 cap.set(1, count)
