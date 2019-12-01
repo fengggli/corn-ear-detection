@@ -28,7 +28,7 @@ notes-train.md
 
 * python environment 
 ```
-conda create -n tf-cpu pip pillow matplotlib python=3.7 tensorflow=1.14
+conda create -n tf-cpu pip pillow matplotlib pandas python=3.7 tensorflow=1.14
 conda activate tf-cpu
 pip install opencv-python
 ```
