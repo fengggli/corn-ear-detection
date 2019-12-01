@@ -8,6 +8,8 @@ import zipfile
 import cv2
 import argparse
 
+import pandas as pd
+
 from collections import defaultdict
 from io import StringIO
 from matplotlib import pyplot as plt
@@ -30,12 +32,23 @@ parser = argparse.ArgumentParser()
 
 # add long and short argument
 parser.add_argument("--imagepath", help="image to process(if not provided, a sample video will be processed instead)")
+parser.add_argument("--videopath", help="path to gopro video file")
+parser.add_argument("--norender", help="don't generate output video", action="store_true")
+parser.add_argument("--stepsize", help="stepsize in frames", type = int)
 
 args = parser.parse_args()
 
 # operato on a video if not providing any image input
 input_is_video=True
-videopath='data/examples/GOPR0388.MP4'
+
+if(args.videopath):
+    videopath = args.videopath
+else:
+    videopath='data/examples/GOPR0388.MP4'
+
+width = 1920
+height = 1080
+
 
 # check file exits
 if(args.imagepath):
@@ -44,8 +57,18 @@ if(args.imagepath):
     input_is_video=False
 else:
     fourcc = cv2.VideoWriter_fourcc(*'MP4V')
-    outputpath='data/predict.mp4'
-    out = cv2.VideoWriter(outputpath,fourcc, 30.0, (1920,1080))
+    gopro_id = os.path.splitext(os.path.basename(videopath))[0]
+
+    output_video_path= os.path.join('tests/predictions/video/', gopro_id +'.MP4')
+    output_csv_path= os.path.join('tests/predictions/csv/', gopro_id + '.csv')
+
+    if not args.norender:
+        out = cv2.VideoWriter(output_video_path,fourcc, 30.0, (width,height))
+
+if args.stepsize:
+    frames_per_step = args.stepsize
+else:
+    frames_per_step = 10
 
 MODEL_PATH='data/saved_models/v0.1/'
 
@@ -90,6 +113,9 @@ else:
 
 # Detection a video
 count = 0
+
+xml_list = []
+
 with detection_graph.as_default():
     with tf.Session(graph=detection_graph) as sess:
         while True:
@@ -98,13 +124,11 @@ with detection_graph.as_default():
             if input_is_video:
                 print("frame #", count)
                 ret, image_np = cap.read()
-                if ret and count < 30:
-                    count += 1 # i.e. at 30 fps, this advances one second
-                    cap.set(1, count)
-                else:
+                if not ret:
                     cap.release()
                     cv2.destroyAllWindows()
-                    print('predicted video is saved in', outputpath)
+                    if not args.norender:
+                        print('predicted video is saved in', output_video_path)
                     break
             else:
                 print("processing image at ", imagepath)
@@ -128,18 +152,44 @@ with detection_graph.as_default():
                 feed_dict={image_tensor: image_np_expanded})
             # Visualization of the results of a detection.
 
+            all_boxes = np.squeeze(boxes)
+            all_classes = np.squeeze(classes).astype(np.int32)
+            all_scores = np.squeeze(scores)
+
             vis_util.visualize_boxes_and_labels_on_image_array(
                 image_np,
-                np.squeeze(boxes),
-                np.squeeze(classes).astype(np.int32),
-                np.squeeze(scores),
+                all_boxes,
+                all_classes,
+                all_scores,
                 category_index,
                 use_normalized_coordinates=True,
                 line_thickness=8)
 
             # Display output
             if input_is_video:
-                out.write(image_np)
+                for i in range(all_boxes.shape[0]):
+                    if(all_scores[i]) > 0.5:
+                        name = gopro_id + 'frame'+ str(count)
+                        value = (name,
+                                int(width),
+                                int(height),
+                                all_classes[i],
+                                int(all_boxes[i][1] * width), #xmin
+                                int(all_boxes[i][0] * height ), #ymin
+                                int(all_boxes[i][3] * width ), #xmax
+                                int(all_boxes[i][2] * height), #ymax
+                                float(all_scores[i])
+                                )
+
+                        xml_list.append(value)
+
+                if not args.norender:
+                    for frame in range(frames_per_step):
+                        out.write(image_np)
+
+                count += frames_per_step
+                cap.set(1, count)
+
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
             else:
@@ -148,3 +198,10 @@ with detection_graph.as_default():
                 plt.imsave(outputpath, image_np)
                 print('predicted image is saved in', outputpath)
                 break
+
+
+column_name = ['filename', 'width', 'height', 'class', 'xmin', 'ymin', 'xmax', 'ymax', 'score']
+xml_df = pd.DataFrame(xml_list, columns=column_name)
+
+xml_df.to_csv(output_csv_path, index=None)
+print('Successfully converted xml to csv:', output_csv_path)
