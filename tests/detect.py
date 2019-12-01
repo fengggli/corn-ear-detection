@@ -34,6 +34,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--imagepath", help="image to process(if not provided, a sample video will be processed instead)")
 parser.add_argument("--videopath", help="path to gopro video file")
 parser.add_argument("--norender", help="don't generate output video", action="store_true")
+parser.add_argument("--stepsize", help="stepsize in frames", type = int)
 
 args = parser.parse_args()
 
@@ -58,11 +59,16 @@ else:
     fourcc = cv2.VideoWriter_fourcc(*'MP4V')
     gopro_id = os.path.splitext(os.path.basename(videopath))[0]
 
-    output_video_path= os.path.join('tests/predictions/', gopro_id +'.MP4')
-    output_csv_path= os.path.join('tests/predictions/', gopro_id + '.csv')
+    output_video_path= os.path.join('tests/predictions/video/', gopro_id +'.MP4')
+    output_csv_path= os.path.join('tests/predictions/csv/', gopro_id + '.csv')
 
     if not args.norender:
         out = cv2.VideoWriter(output_video_path,fourcc, 30.0, (width,height))
+
+if args.stepsize:
+    frames_per_step = args.stepsize
+else:
+    frames_per_step = 10
 
 MODEL_PATH='data/saved_models/v0.1/'
 
@@ -107,7 +113,6 @@ else:
 
 # Detection a video
 count = 0
-frames_per_step = 60
 
 xml_list = []
 
@@ -122,7 +127,8 @@ with detection_graph.as_default():
                 if not ret:
                     cap.release()
                     cv2.destroyAllWindows()
-                    print('predicted video is saved in', output_video_path)
+                    if not args.norender:
+                        print('predicted video is saved in', output_video_path)
                     break
             else:
                 print("processing image at ", imagepath)
