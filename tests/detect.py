@@ -70,7 +70,7 @@ if args.stepsize:
 else:
     frames_per_step = 10
 
-MODEL_PATH='data/saved_models/v0.1/'
+MODEL_PATH='data/saved_models/v0.2/'
 
 PATH_TO_CKPT = os.path.join(MODEL_PATH, 'frozen_inference_graph.pb')
 PATH_TO_LABELS = os.path.join(MODEL_PATH, 'corn_label_map_2class.pbtxt')
@@ -101,7 +101,7 @@ def load_image_into_numpy_array(image):
         (im_height, im_width, 3)).astype(np.uint8)
 
 if(input_is_video):
-    print("This is a video!")
+    print("This is a video!:", videopath)
     cap = cv2.VideoCapture(videopath)  # Change only if you have more than one webcams
 else:
     try:
@@ -125,6 +125,7 @@ with detection_graph.as_default():
                 print("frame #", count)
                 ret, image_np = cap.read()
                 if not ret:
+                    print('End of input video!')
                     cap.release()
                     cv2.destroyAllWindows()
                     if not args.norender:
