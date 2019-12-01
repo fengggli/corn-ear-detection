@@ -13,8 +13,12 @@ TFRECORD_DIR=/share/Competition2/images
 NEW_UUID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 5 | head -n 1)
 SOURCE_DIR=$(pwd)
 
+# 4 inch data
 ANNOTATION_DIR=$BOX_DIR/annotation_xml
 IMAGES_DIR=$BOX_DIR/images_original
+
+#2 inch data and annotations
+INCH2_DIR=$BOX_DIR/2inch
 
 OUTPUT_DIR=/tmp/cornear-$NEW_UUID
 
@@ -28,6 +32,7 @@ cd $OUTPUT_DIR
 
   mkdir -pv all_xml 
   cp $ANNOTATION_DIR/*xml/*.xml all_xml #325 xmls, some don't have connections
+  cp $INCH2_DIR/*xml/*.xml all_xml #325 xmls, some don't have connections
 
   grep -Rl "<name>[12]</name>" all_xml/ | shuf &> selected.list #xml 290contains "1" or "2"
   num_val=30 #15% samples for validation
@@ -40,6 +45,7 @@ cd $OUTPUT_DIR
 {
   mkdir -pv images
   cp $IMAGES_DIR/*/*.jpg  images #346 imgs
+  cp $INCH2_DIR/*/*.jpg  images #346 imgs
 }
 
 # generate xml
