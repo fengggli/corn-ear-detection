@@ -1,3 +1,5 @@
+Detect corn ears from GoPro videos taken from corn fields.
+
 1. codebase description
 Code is in https://github.com/fengggli/corn-ear-detection
 

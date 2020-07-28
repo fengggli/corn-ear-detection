@@ -51,7 +51,11 @@ Model
 
 Steps
 ===========
-1. Download and extract box data at path-to-box-download
+1. Download images with annotations
+  ```
+  wget  https://cs.iupui.edu/~lifen/files/corndata.tar
+  tar -xf ../corndata.tar
+  ```
 2. cd scripts/ and run 
   ```
   process_data.sh path-to-box-download
